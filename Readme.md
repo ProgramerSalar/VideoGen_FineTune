@@ -5,6 +5,10 @@
     ```
     git clone https://huggingface.co/ProgramerSalar/text_encoder
     ```
+
+    ```
+    git clone https://huggingface.co/ProgramerSalar/text_encoder_miniflux
+    ```
     
     put the `duffusion_pytorch_model.safetensors` file in the `PATH/vae_ckpt` folder
 
@@ -25,5 +29,5 @@
     ```
 
     ```
-    sh extract_latent/script/script.sh
+    sh extract_text_features/scripts/scripts.sh
     ```

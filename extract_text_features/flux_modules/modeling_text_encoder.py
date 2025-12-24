@@ -81,7 +81,9 @@ class FluxTextEncoderWithMask(nn.Module):
         print(f"what is the prompt to get: {prompt}")
         prompt = [prompt] if isinstance(prompt, str) else prompt
 
+        # print(f"Let's know the prompt: >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>   {prompt}")
         batch_size = len(prompt)
+        
 
         text_inputs = self.tokenizer(
             prompt,

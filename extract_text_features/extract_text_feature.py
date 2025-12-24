@@ -50,14 +50,17 @@ class VideoTextDataset(Dataset):
         with jsonlines.open(anno_file, 'r') as reader:
             for item in tqdm(reader):
                 self.annotation.append(item)    # This item is a dict that has key_name: text, text_fea
+        # print(f"I want to know that what is the text in [Dataset]: {self.annotation}")
+        
 
     
     def __getitem__(self, index):
         try:
             anno = self.annotation[index]
             text = anno['text']
-            text_fea_path = anno['text_fea']    # The text feature save path
-
+            text_fea_path = anno['text_latent']    # The text feature save path
+            
+           
             text_fea_save_dir = os.path.split(text_fea_path)[0]
             if not os.path.exists(text_fea_save_dir):
                 os.makedirs(text_fea_save_dir, exist_ok=True)
@@ -93,17 +96,13 @@ def build_data_loader(args):
     
 
     dataset = VideoTextDataset(args.anno_file)
-    sampler = DistributedSampler(dataset, 
-                                 num_replicas=args.world_size, 
-                                 rank=args.rank, 
-                                 shuffle=False)
+    
     
     loader = DataLoader(
         dataset=dataset,
         batch_size=args.batch_size,
         num_workers=4,
         pin_memory=True,
-        sampler=sampler,
         shuffle=False,
         collate_fn=collate_fn,
         drop_last=False
@@ -160,7 +159,7 @@ def main():
     random.seed(seed)
 
     device = torch.device('cuda')
-    rank = args.rank 
+    
 
     model = build_model(args)
     model.to(device)
@@ -182,12 +181,15 @@ def main():
     task_queue = []
 
     for sample in tqdm(data_loader):
+        print(f"what is the sampler : >>>>>>>>>>>>>>>>>>>>>>>>>> {sample}")
         texts = sample['text']
         outputs = sample['output']
 
         with torch.no_grad(), torch.autocast(device_type="cuda",
                                              enabled=True,
                                              dtype=torch_dtype):
+
+            
             
             prompt_embeds, prompt_attention_masks, pooled_prompt_embeds = model(texts, device)
 
@@ -205,7 +207,7 @@ def main():
                 torch.save(output_dict, output_path)
 
 
-    torch.distributed.barrier()
+  
 
 
 
