@@ -3,7 +3,7 @@
 
 1. clone the huggingface repo because in this repo have the pretrained vae weight.
     ```
-    git clone https://huggingface.co/ProgramerSalar/text_encoder
+    git clone https://huggingface.co/ProgramerSalar/vae_model_ckpt
     ```
     
     put the `duffusion_pytorch_model.safetensors` file in the `PATH/vae_ckpt` folder
