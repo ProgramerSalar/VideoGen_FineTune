@@ -96,13 +96,19 @@ def csv_file_take(metadata_file_path):
             text_latent_file = video_text.replace(' ', '_')
             text_latent_file = text_latent_file.split('.')[0]
             text_latent_file = text_latent_file.__add__('.pt')
+            # print(text_latent_file)
+
+            # print(video_latent_file)
+            split_file = video_latent_file.split('/')[:-1]
+            split_file = '/'.join(split_file)
+            text_latent_new_file = split_file+'/'+text_latent_file
             
 
             local_list.append({
                 "video": video_file,
                 "text": video_text,
                 "video_latent": video_latent_file,
-                "text_latent": text_latent_file
+                "text_latent": text_latent_new_file
             })
 
     except pd.errors.EmptyDataError:
@@ -117,8 +123,8 @@ def csv_file_take(metadata_file_path):
     
 
     # --- Main Execution ---
-video_folder_path = "./Data/clip_video"
-video_text_json_path = "./annotation/annotation_with_text/video_text_json.json"
+# video_folder_path = "./Data/clip_video"
+# video_text_json_path = "./annotation/annotation_with_text/video_text_json.json"
 
 
 def main(video_folder_path, video_text_json_path):
@@ -161,5 +167,9 @@ def convert_into_jsonl(json_file_path):
 
 
 if __name__ == "__main__":
-    convert_into_jsonl("/home/manish/Desktop/projects/video_Generation/Tools/annotation/annotation_with_text/video_text_json.json")
+    video_folder_path = "./Data/clip_video"
+    video_text_json_path = "./annotation/annotation_with_text/video_text_json.json"
+    main(video_folder_path, video_text_json_path)
+
+    # convert_into_jsonl("/home/manish/Desktop/projects/video_Generation/Tools/annotation/annotation_with_text/video_text_json.json")
     

@@ -59,11 +59,18 @@ class VideoTextDataset(Dataset):
             anno = self.annotation[index]
             text = anno['text']
             text_fea_path = anno['text_latent']    # The text feature save path
+
+            print(f"text: >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> {text}")
+            print(f"[Dataset] text_feature_path: >>>>>>>>>>>>>>>>>>>>>> {text_fea_path}")
+            
             
            
             text_fea_save_dir = os.path.split(text_fea_path)[0]
             if not os.path.exists(text_fea_save_dir):
                 os.makedirs(text_fea_save_dir, exist_ok=True)
+
+            # print(f"text: >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> {text}")
+            # print(f"[Dataset] text_feature_path: >>>>>>>>>>>>>>>>>>>>>> {text_fea_path}")
 
             return text, text_fea_path
         
@@ -87,9 +94,12 @@ def build_data_loader(args):
         output_path_list = []
 
         for text, text_fea_path in batch:
+          
             if text is not None:
                 text_list.append(text)
                 output_path_list.append(text_fea_path)
+
+        
 
         return {'text': text_list,
                 'output': output_path_list}
@@ -132,13 +142,6 @@ def build_model(args):
         text_encoder = FluxTextEncoderWithMask(model_path=model_path,
                                                torch_dtype=torch_dtype)
         
-
-    elif model_name == "pyramid_mmdit":
-        pass 
-        
-
-    else:
-        raise NotImplementedError
     
 
     return text_encoder
