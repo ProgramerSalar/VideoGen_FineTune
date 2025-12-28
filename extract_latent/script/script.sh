@@ -1,5 +1,5 @@
 GPUS=1
-ANNO_FILE=/content/VideoGen_FineTune/annotation/test_video_annotation.jsonl
+ANNO_FILE=/content/VideoGen_FineTune/annotation/video_data_files_path.jsonl
 VAE_MODEL_PATH=PATH/vae_ckpt
 WIDTH=640
 HEIGHT=384

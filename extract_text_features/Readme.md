@@ -2,9 +2,10 @@
 # makes sure follow this step 
 
 1. clone the huggingface repo because in this repo have the pretrained vae weight.
+   
     ```
-    cd extract_latent/PATH
-    git clone https://huggingface.co/ProgramerSalar/vae_model_ckpt
+    cd extract_text_features/PATH
+    git clone https://huggingface.co/ProgramerSalar/text_encoder_miniflux
     ```
     
     put the `duffusion_pytorch_model.safetensors` file in the `PATH/vae_ckpt` folder
@@ -26,5 +27,5 @@
     ```
 
     ```
-    sh extract_latent/script/script.sh
+    sh extract_text_features/scripts/scripts.sh
     ```
