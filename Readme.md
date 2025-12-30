@@ -38,8 +38,15 @@
     sh extract_latent/script/script.sh
     ```
 
-
+---
 # Extract the latent from text.
+* yaah, you can understand one things make sure there is not of this `clip_video` folder of in the `Tools` dir. when you are run the  `extract_text_feature` function because `code` are automatically create this `dir`
+
+* make sure the annotation are found in this format
+```
+{"video": "", "text": "So here I have an equation, a linear equation.", "video_latent": "", "text_latent": "./clip_video/Graphs_of_linear_equations/videos/So_here_I_have_an_equation,_a_linear_equation.pt"}
+```
+
 1. clone the huggingface repo because in this repo have the pretrained vae weight.
    
     ```
